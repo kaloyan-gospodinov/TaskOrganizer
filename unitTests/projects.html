@@ -1,0 +1,36 @@
+<div id="userProjects" class="span9">
+	<div id="myProjectsView" class="section" data-bind="with: myProjects">
+		<div class="page-header">
+			<h4>
+				<a href="#projects">My Projects</a>
+				<small>(<span data-bind="text: $data.length"></span>)</small>
+			</h4>
+		</div>
+		<ul class="thumbnails" data-bind="foreach: $data">
+			<li class="span3">
+				<div class="thumbnail text-center" data-bind="bootstrapPopover: { content: description }">
+					<h3>
+						<a data-bind="text: title, attr: { href: '#projects/' + id}"></a>
+					</h3>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div  id="sideProjectsView" class="section" data-bind="with: sideProjects">
+		<div class="page-header">
+			<h4>
+				<a href="#projects">Project Participatory</a>
+				<small>(<span data-bind="text: $data.length"></span>)</small>
+			</h4>
+		</div>
+		<ul class="thumbnails" data-bind="foreach: $data">
+			<li class="span3">
+				<div class="thumbnail text-center" data-bind="bootstrapPopover: { content: description }">
+					<h3>
+						<a data-bind="text: title, attr: { href: '#projects/' + id}"></a>
+					</h3>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

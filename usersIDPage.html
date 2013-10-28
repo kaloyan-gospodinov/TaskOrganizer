@@ -1,0 +1,75 @@
+<div class="container-fluid">
+	<div class="row-fluid">
+		<!-- SIDEBAR -->
+        <div id="userInfo" class="span3">
+            <div class="page-header clearfix text-center">
+                <a data-bind="attr: { href: '#users/' + userInfo.id() }">
+                    <img class="clearfix img-rounded" width="200" height="200" data-bind="attr: { src: userInfo.avatar }">
+                </a>
+                <hr>
+                <h4>
+                    <a data-bind="text: userInfo.name, attr: { href: '#users/' + userInfo.id() }"></a>
+                </h4>
+                <p>
+                    <strong data-bind="text: userInfo.email"></strong>
+                </p>
+            </div>
+            <p data-bind="text: userInfo.description"></p>
+        </div>
+        <!-- MAIN CONTAINER -->
+		<div id="userProjects" class="span9">
+			<div class="section" data-bind="with: myProjects">
+				<div class="page-header">
+					<h4>
+						<span>Projects</span>
+						<small>(<span data-bind="text: $data.length"></span>)</small>
+					</h4>
+				</div>
+				<ul class="thumbnails" data-bind="foreach: $data">
+					<li class="span3">
+						<div class="thumbnail text-center" data-bind="bootstrapPopover: { content: description }">
+							<h3>
+								<a data-bind="text: title, attr: { href: '#projects/' + id}"></a>
+							</h3>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="section" data-bind="with: sideProjects">
+				<div class="page-header">
+					<h4>
+						<span>Project Participatory</span>
+						<small>(<span data-bind="text: $data.length"></span>)</small>
+					</h4>
+				</div>
+				<ul class="thumbnails" data-bind="foreach: $data">
+					<li class="span3">
+						<div class="thumbnail text-center" data-bind="bootstrapPopover: { content: description }">
+							<h3>
+								<a data-bind="text: title, attr: { href: '#projects/' + id}"></a>
+							</h3>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="js/models.js"></script>
+<script src="js/customBindingHandlers.js"></script>
+<script src="js/userInfoViewModel.js"></script>
+<script src="js/projectsViewModel.js"></script>
+<script>
+(function() {
+	var slash = location.hash.indexOf('/');
+		uid = location.hash.substring(slash + 1);
+
+	ko.applyBindings(
+	    new UserInfoViewModel(uid),
+	    document.getElementById('userInfo'));
+
+	ko.applyBindings(
+		new ProjectsViewModel('ss/controller.php', uid),
+		document.getElementById('userProjects'));
+}());
+</script>

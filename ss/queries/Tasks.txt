@@ -1,0 +1,4 @@
+INSERT INTO "tasks" ("id", "user_id", "project_id", "status", "title", "description", "startdate", "enddate")
+	VALUES (NULL, '4', '1', '1', 'Refactore RAMFS and TMPFS implementation.', 'Ramfs is a very simple filesystem that exports Linux''s disk caching mechanisms (the page cache and dentry cache) as a dynamically resizable RAM-based filesystem.','1370754000','1371272400');
+INSERT INTO "tasks" ("id", "user_id", "project_id", "status", "title", "description", "startdate", "enddate")
+	VALUES (NULL, '5', '3', '2', 'JavaScript API', 'Implement a javascript library for reading and interpreting RRD (Round Robind Database) files from both remote Web servers and local file directories. It should uses AJAX-like techniques, but without any code being run on a remote Web server; i.e. it should provide a purely client-side access to RRD.','1371272400','1372050000');

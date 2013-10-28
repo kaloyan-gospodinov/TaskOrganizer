@@ -1,0 +1,96 @@
+<div class="container-fluid">
+	<div class="row-fluid">
+		<!-- SIDEBAR -->
+        <div id="userInfo" class="span3">
+            <div class="page-header clearfix text-center">
+                <a data-bind="attr: { href: '#users/' + userInfo.id() }">
+                    <img class="clearfix img-rounded" width="200" height="200" data-bind="attr: { src: userInfo.avatar }">
+                </a>
+                <hr>
+                <h4>
+                    <a data-bind="text: userInfo.name, attr: { href: '#users/' + userInfo.id() }"></a>
+                </h4>
+                <p>
+                    <strong data-bind="text: userInfo.email"></strong>
+                </p>
+            </div>
+            <p data-bind="text: userInfo.description"></p>
+        </div>
+        <!-- MAIN CONTAINER -->
+		<div id="userProjects" class="span9">
+			<div class="section" data-bind="with: myProjects">
+				<div class="page-header">
+					<h4>
+						<span>Projects</span>
+						<small>(<span data-bind="text: $data.length"></span>)</small>
+						<button class="btn btn-mini btn-primary pull-right" type="button" href="#projForm" data-toggle="modal">Add New</button>
+					</h4>
+				</div>
+				<ul class="thumbnails" data-bind="foreach: $data">
+					<li class="span3">
+						<div class="thumbnail text-center" data-bind="bootstrapPopover: { content: description }">
+							<h3>
+								<a data-bind="text: title, attr: { href: '#projects/' + id}"></a>
+							</h3>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="section" data-bind="with: sideProjects">
+				<div class="page-header">
+					<h4>
+						<span>Project Participatory</span>
+						<small>(<span data-bind="text: $data.length"></span>)</small>
+					</h4>
+				</div>
+				<ul class="thumbnails" data-bind="foreach: $data">
+					<li class="span3">
+						<div class="thumbnail text-center" data-bind="bootstrapPopover: { content: description }">
+							<h3>
+								<a data-bind="text: title, attr: { href: '#projects/' + id}"></a>
+							</h3>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="projForm" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="New Project" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+        <h3 id="projectAddLabel">New Project</h3>
+    </div>
+    <div class="modal-body">
+        <div class="span5">
+            <form method="post" action="ss/controller.php">
+                <input type="text" name="title" id="title" class="span5" placeholder="Title">
+                <textarea name="description" id="description" class="span5" placeholder="Description (optional)"></textarea>
+                <div class="alert hide" id="alert">
+                    <strong id="message"></strong>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true" id="close">Close</button>
+        <button class="btn btn-primary" id="add">Add</button>
+    </div>
+</div>
+<script src="js/models.js"></script>
+<script src="js/customBindingHandlers.js"></script>
+<script src="js/userInfoViewModel.js"></script>
+<script src="js/projectsViewModel.js"></script>
+<script src="js/projectsAddNew.js"></script>
+<script>
+(function() {
+	ko.applyBindings(
+	    new UserInfoViewModel(),
+	    document.getElementById('userInfo'));
+
+	ko.applyBindings(
+		new ProjectsViewModel(),
+		document.getElementById('userProjects'));
+}());
+</script>

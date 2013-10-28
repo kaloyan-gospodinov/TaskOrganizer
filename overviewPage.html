@@ -1,0 +1,77 @@
+<div id="overviewPage" class="page">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <!-- SIDEBAR -->
+            <div id="userInfo" class="span3">
+                <div class="page-header clearfix text-center">
+                    <a data-bind="attr: { href: '#users/' + userInfo.id() }">
+                        <img class="clearfix img-rounded" width="200" height="200" data-bind="attr: { src: userInfo.avatar }">
+                    </a>
+                    <hr>
+                    <h4>
+                        <a data-bind="text: userInfo.name, attr: { href: '#users/' + userInfo.id() }"></a>
+                    </h4>
+                    <p>
+                        <strong data-bind="text: userInfo.email"></strong>
+                    </p>
+                </div>
+                <p data-bind="text: userInfo.description"></p>
+            </div>
+            <!-- MAIN CONTAINER -->
+            <div id="sections" class="span9">
+                <!-- TASKS -->
+                <div id="userTasks" class="section" data-bind="with: tasks">
+                    <div class="page-header">
+                        <h4>
+                            <span>Tasks</span>
+                            <small>(<span data-bind="text: $data.length"></span>)</small>
+                        </h4>
+                    </div>
+
+                    <div data-bind="visible: $data.length !== 0">
+                        <table class="table table-striped table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>End Date</th>
+                                    <th>Status</th> 
+                                    <th></th>                                         
+                                </tr>
+                            </thead>   
+                            <tbody data-bind="foreach: $data">
+                                <tr> 
+                                    <td><a data-bind="text: $data.title, attr: { href: '#projects/' + $data.project}"></a></td>
+                                    <td data-bind="text: $root.getYMDTime($data.endDate)"></td>
+                                    <td data-bind="with: $data.status">
+                                        <span data-bind="visible: $data === 4" class="label label-success">Done</span>
+                                        <span data-bind="visible: $data === 3" class="label label-warning">In Testing</span>
+                                        <span data-bind="visible: $data === 2" class="label label-important">In Progress</span>
+                                        <span data-bind="visible: $data === 1" class="label">Pending</span>
+                                    </td>
+                                    <td>
+                                        <span class="icon-edit" data-bind="visible: true"></span>
+                                    </td>
+                                </tr>                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/models.js"></script>
+<script src="js/customBindingHandlers.js"></script>
+<script src="js/userInfoViewModel.js"></script>
+<script src="js/userTasksViewModel.js"></script>
+<script>
+(function() {
+    ko.applyBindings(
+        new UserInfoViewModel(),
+        document.getElementById('userInfo'));
+
+    ko.applyBindings(
+        new UserTasksViewModel(),
+        document.getElementById('userTasks'));
+}());
+</script>
